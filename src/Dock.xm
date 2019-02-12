@@ -35,7 +35,8 @@ SBFloatingDockController *dock = NULL;
 }
 
 - (BOOL)_systemGestureManagerAllowsFloatingDockGesture {
-    if (prefs.enableHomeGesture) {
+    if (true) {
+    //if (prefs.enableHomeGesture) {
         // get all the information that we need
         UIGestureRecognizer *edgePullGestureRecognizer = [[self.viewController grabberTongue] edgePullGestureRecognizer];
         CGPoint location = [edgePullGestureRecognizer locationInView:edgePullGestureRecognizer.view];
@@ -57,30 +58,34 @@ SBFloatingDockController *dock = NULL;
         }
     }
 
-    return prefs.enableInAppDock;
+    return true;
 }
 %end
 
 // Enable floating dock recent app / suggestion
 %hook SBFloatingDockSuggestionsModel
 - (id)initWithMaximumNumberOfSuggestions:(unsigned long long)maxSuggestion iconController:(id)arg2 recentsController:(id)arg3 recentsDataStore:(id)arg4 recentsDefaults:(id)arg5 floatingDockDefaults:(id)arg6 appSuggestionManager:(id)arg7 analyticsClient:(id)arg8 {
-    maxSuggestion = prefs.maxSuggestion;
+    //maxSuggestion = prefs.maxSuggestion;
+    maxSuggestion = 2;
+
     return %orig;
 }
 
 - (BOOL)_shouldProcessAppSuggestion:(id)arg1 {
-    return prefs.enableDockSuggestion;
+    //return prefs.enableDockSuggestion;
+    return true;
 }
 
 - (BOOL)recentsEnabled {
-    return prefs.showRecentApp;
+    return true;
 }
 %end
 
 // Dismiss floating dock by pressing home button
 %hook SBHomeHardwareButton
 - (void)singlePressUp:(id)arg1 {
-    if (prefs.enableHomeButtonDismiss) {
+    //if (prefs.enableHomeButtonDismiss) {
+    if (true) {
         // must not be springboard and dock must be swiped up
         if (!isSpringBoardAtFront && dock && [dock isFloatingDockPresented]) {
             [dock _dismissFloatingDockIfPresentedAnimated:YES completionHandler:NULL];
@@ -106,7 +111,8 @@ SBFloatingDockController *dock = NULL;
 %end    // %group Dock
 
 %ctor {
-    if (prefs.enableDock) {
+    //if (prefs.enableDock) {
+    if (true) {
         %init(Dock);
     }
 }

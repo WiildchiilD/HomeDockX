@@ -85,7 +85,8 @@ BOOL _isDashboardActive = 0;
 
             // do not do home gesture for 1/2 left of the screen if dock is enabled
             if (!isSpringBoardAtFront && 
-                prefs.enableDock
+                //prefs.enableDock
+                true
             ) {
                 BOOL reset = NO;
 
@@ -110,7 +111,8 @@ BOOL _isDashboardActive = 0;
             }
 
             // do not enable home gesture when using keyboard
-            if (prefs.noKeyboard && isKeyboardVisible) {
+            //if (prefs.noKeyboard && isKeyboardVisible) {
+            if (false && isKeyboardVisible) {
                 resetTouch(self, touches, event);
                 return;
             }
@@ -136,7 +138,8 @@ BOOL _isDashboardActive = 0;
 %end    // end %group HomeGesture
 
 %ctor {
-    if (prefs.enableHomeGesture) {
+    if (true) {
+//    if (prefs.enableHomeGesture) {
         %init(HomeGesture);
     }
 }

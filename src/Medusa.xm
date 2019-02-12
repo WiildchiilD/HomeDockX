@@ -62,7 +62,8 @@ NSMutableDictionary *capableApps = [NSMutableDictionary new];
 %end    // end %group Medusa
 
 %ctor {
-    if (prefs.enableMedusa) {
+    //if (prefs.enableMedusa) {
+    if (true) {
         %init(Medusa);
     }
 }
